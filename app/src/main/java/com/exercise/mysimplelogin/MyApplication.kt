@@ -1,16 +1,13 @@
 package com.exercise.mysimplelogin
 
 import android.app.Application
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import com.exercise.mysimplelogin.di.AppComponent
+import com.exercise.mysimplelogin.di.DaggerAppComponent
 
 open class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-
-        startKoin{
-            androidContext(this@MyApplication)
-            modules(storageModule)
-        }
+    val appComponent: AppComponent by lazy {
+        DaggerAppComponent.factory().create(
+            applicationContext
+        )
     }
 }
